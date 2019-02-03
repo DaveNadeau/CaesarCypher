@@ -3,30 +3,37 @@
 #include<string>
 
 
-std::vector<int> decode(std::string str);
+void decode(std::string str);
 
 
 
 int main() {
 	std::string input;
-	std::vector<int> result;
 	std::cout << "Please enter the code: ";
 
-	std::cin >> input;
+	std::getline(std::cin, input);
 
-	std::cout << result;
+	decode(input);
 
 	std::getchar();
+	std::getchar();
+	
 	return 0;
 }
 
-std::vector<int> decode(std::string str) {
+void decode(std::string str) {
 	std::vector<int> decodeArray = {};
-
-	for (int i = 0; i < str.length; i++) {
+	std::string result;
+	//create an array of the ascii codes for the letters in the string
+	for (int i = 0; i < str.length(); i++) {
 		decodeArray.push_back(str[i]);
+	//perform caesar cypher rotary manipulation
+		if (decodeArray[i] > 64 && decodeArray[i] < 91) {
+			decodeArray[i] = (decodeArray[i] - 65 + 13) % 26;
+			decodeArray[i] += 65;
+		}
+		//store back into string
+		result.push_back(decodeArray[i]);
 	}
-
-	return decodeArray;
-
+	std::cout << result;
 }
